@@ -5,10 +5,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
-@Entity('companies')
-class Company {
+import Company from './Company';
+
+@Entity('users')
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -16,7 +20,20 @@ class Company {
   name: string;
 
   @Column()
-  cnpj: string;
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column()
+  admin: boolean;
+
+  @Column()
+  company_id: string;
+
+  @ManyToOne(() => Company)
+  @JoinColumn({ name: 'company_id' })
+  company: Company;
 
   @CreateDateColumn()
   created_at: Date;
@@ -24,4 +41,4 @@ class Company {
   @UpdateDateColumn()
   updated_at: Date;
 }
-export default Company;
+export default User;
