@@ -1,22 +1,21 @@
-import { getCustomRepository } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 import Company from '../models/Company';
-import CompaniesRepository from '../repositories/CompaniesRepository';
 
 interface Request {
-    name: string;
-    cnpj: string;
+  name: string;
+  cnpj: string;
 }
 class CreateCompanyService {
-    public async execute({ name, cnpj }: Request): Promise<Company> {
-        const companiesRepository = getCustomRepository(CompaniesRepository);
+  public async execute({ name, cnpj }: Request): Promise<Company> {
+    const companyRepository = getRepository(Company);
 
-        const company = companiesRepository.create({
-            name,
-            cnpj,
-        });
-        await companiesRepository.save(company);
-        return company;
-    }
+    const company = companyRepository.create({
+      name,
+      cnpj,
+    });
+    await companyRepository.save(company);
+    return company;
+  }
 }
 export default CreateCompanyService;
