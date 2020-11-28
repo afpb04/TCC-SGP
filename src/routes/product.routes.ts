@@ -4,7 +4,11 @@ import { getRepository } from 'typeorm';
 import Product from '../models/Product';
 import CreateProductService from '../services/CreateProductService';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const productRouter = Router();
+
+productRouter.use(ensureAuthenticated);
 
 productRouter.get('/', async (request, response) => {
   const productRepository = getRepository(Product);
