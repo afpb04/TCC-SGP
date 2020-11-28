@@ -27,6 +27,7 @@ class CreateOrderProductService {
       orders_id,
       products_id,
     });
+    await orderProductRepository.save(orderProduct);
     return orderProduct;
   }
 }
