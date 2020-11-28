@@ -27,6 +27,8 @@ class CreateProductService {
       company_id,
       category_id,
     });
+    await productRepository.save(product);
+
     return product;
   }
 }
