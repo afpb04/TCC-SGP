@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 import Delivery from './Delivery';
-import Order from './Orders';
+import Order from './Order';
 
 @Entity('orders_deliveries')
 class OrderDelivery {

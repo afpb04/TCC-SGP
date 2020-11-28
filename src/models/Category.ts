@@ -11,7 +11,7 @@ import {
 
 import Company from './Company';
 
-@Entity('Categories')
+@Entity('categories')
 class Category {
   @PrimaryGeneratedColumn('uuid')
   id: string;
