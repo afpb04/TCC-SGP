@@ -13,18 +13,14 @@ companiesRouter.get('/', async (request, response) => {
   return response.json(companies);
 });
 companiesRouter.post('/', async (request, response) => {
-  try {
-    const { name, cnpj } = request.body;
+  const { name, cnpj } = request.body;
 
-    const createCompany = new CreateCompanyService();
+  const createCompany = new CreateCompanyService();
 
-    const company = await createCompany.execute({
-      name,
-      cnpj,
-    });
-    return response.json(company);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  const company = await createCompany.execute({
+    name,
+    cnpj,
+  });
+  return response.json(company);
 });
 export default companiesRouter;

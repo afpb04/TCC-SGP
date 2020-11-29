@@ -15,19 +15,15 @@ categoriesRouter.get('/', async (resquet, response) => {
 });
 
 categoriesRouter.post('/', async (request, response) => {
-  try {
-    const { name, description, company_id } = request.body;
+  const { name, description, company_id } = request.body;
 
-    const createCategory = new CreateCategoryService();
+  const createCategory = new CreateCategoryService();
 
-    const category = await createCategory.execute({
-      name,
-      description,
-      company_id,
-    });
-    return response.json(category);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  const category = await createCategory.execute({
+    name,
+    description,
+    company_id,
+  });
+  return response.json(category);
 });
 export default categoriesRouter;

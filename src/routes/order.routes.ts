@@ -15,19 +15,15 @@ ordersRouter.get('/', async (request, response) => {
 });
 
 ordersRouter.post('/', async (request, response) => {
-  try {
-    const { totals, isfinished, company_id } = request.body;
+  const { totals, isfinished, company_id } = request.body;
 
-    const createOrder = new CreateOrderService();
+  const createOrder = new CreateOrderService();
 
-    const order = await createOrder.execute({
-      totals,
-      isfinished,
-      company_id,
-    });
-    return response.json(order);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  const order = await createOrder.execute({
+    totals,
+    isfinished,
+    company_id,
+  });
+  return response.json(order);
 });
 export default ordersRouter;

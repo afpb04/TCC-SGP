@@ -3,6 +3,8 @@ import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
 
+import AppError from '../errors/AppError';
+
 import uploadConfig from '../config/upload';
 import Product from '../models/Product';
 
@@ -16,7 +18,7 @@ class UpdateProductImgService {
 
     const product = await productsRepository.findOne(product_id);
     if (!product) {
-      throw new Error('Only authenticated users can change img');
+      throw new AppError('Only authenticated users can change img', 401);
     }
     if (product.img) {
       const productImgFilePath = path.join(uploadConfig.directory, product.img);

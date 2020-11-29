@@ -13,22 +13,18 @@ orderProductRouter.get('/', async (request, response) => {
 });
 
 orderProductRouter.post('/', async (request, response) => {
-  try {
-    const { price, totals, amount, orders_id, products_id } = request.body;
+  const { price, totals, amount, orders_id, products_id } = request.body;
 
-    const createOrderProduct = new CreateOrderProductService();
+  const createOrderProduct = new CreateOrderProductService();
 
-    const orderProduct = await createOrderProduct.execute({
-      price,
-      totals,
-      amount,
-      orders_id,
-      products_id,
-    });
-    return response.json(orderProduct);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  const orderProduct = await createOrderProduct.execute({
+    price,
+    totals,
+    amount,
+    orders_id,
+    products_id,
+  });
+  return response.json(orderProduct);
 });
 
 export default orderProductRouter;
