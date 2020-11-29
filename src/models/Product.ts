@@ -27,6 +27,9 @@ class Product {
   price: number;
 
   @Column()
+  img: string;
+
+  @Column()
   company_id: string;
 
   @ManyToOne(() => Company)
