@@ -1,20 +1,25 @@
-import { getRepository } from 'typeorm';
-
 import Company from '@modules/company/infra/typeorm/entities/Company';
+import { injectable, inject } from 'tsyringe';
 
-interface Request {
+import ICompanyRepository from '../repositories/ICompaiesRepository';
+
+interface IRequest {
   name: string;
   cnpj: string;
 }
+@injectable()
 class CreateCompanyService {
-  public async execute({ name, cnpj }: Request): Promise<Company> {
-    const companyRepository = getRepository(Company);
+  constructor(
+    @inject('CompaniesRepository')
+    private companiesRepository: ICompanyRepository,
+  ) {}
 
-    const company = companyRepository.create({
+  public async execute({ name, cnpj }: IRequest): Promise<Company> {
+    const company = this.companiesRepository.create({
       name,
       cnpj,
     });
-    await companyRepository.save(company);
+
     return company;
   }
 }
