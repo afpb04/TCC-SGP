@@ -3,5 +3,5 @@ import ICreateCompanyDTO from '../dtos/ICreateCompanyDTO';
 
 export default interface ICompaniesRepository {
   create(data: ICreateCompanyDTO): Promise<Company>;
-  show(): Promise<Company[]>;
+  findByCNPJ(cnpj: string): Promise<Company | undefined>;
 }

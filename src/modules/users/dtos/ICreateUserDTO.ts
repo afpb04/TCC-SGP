@@ -4,5 +4,5 @@ export default interface ICreateUsersDTO {
   email: string;
   password: string;
   admin: boolean;
-  company_id: string;
+  company_id?: string;
 }

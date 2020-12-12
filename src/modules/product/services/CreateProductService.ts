@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
-import { getRepository } from 'typeorm';
-
 import Product from '@modules/product/infra/typeorm/entities/Product';
+import { injectable, inject } from 'tsyringe';
+
+import IProductRepository from '../repositories/IProductsRepository';
 
 interface Request {
   name: string;
@@ -10,7 +11,13 @@ interface Request {
   company_id: string;
   category_id: string;
 }
+@injectable()
 class CreateProductService {
+  constructor(
+    @inject('ProductsRepository')
+    private productRepository: IProductRepository,
+  ) {}
+
   public async execute({
     name,
     description,
@@ -18,16 +25,13 @@ class CreateProductService {
     company_id,
     category_id,
   }: Request): Promise<Product> {
-    const productRepository = getRepository(Product);
-
-    const product = productRepository.create({
+    const product = this.productRepository.create({
       name,
       description,
       price,
       company_id,
       category_id,
     });
-    await productRepository.save(product);
 
     return product;
   }

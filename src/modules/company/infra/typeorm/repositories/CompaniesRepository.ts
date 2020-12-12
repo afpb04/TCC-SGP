@@ -10,8 +10,10 @@ class CompaniesRepository implements ICompaniesRepository {
     this.ormRepository = getRepository(Company);
   }
 
-  public async show(): Promise<Company[]> {
-    const company = await this.ormRepository.find();
+  public async findByCNPJ(cnpj: string): Promise<Company | undefined> {
+    const company = await this.ormRepository.findOne({
+      where: { cnpj },
+    });
     return company;
   }
 
