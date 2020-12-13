@@ -35,7 +35,7 @@ describe('UpdateProductImg', () => {
       fakeStorageProvider,
     );
 
-    expect(
+    await expect(
       updateImgProduct.execute({
         product_id: 'non-existing-product',
         imgFilename: 'img.jpg',

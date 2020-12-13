@@ -21,7 +21,7 @@ describe('CreateCompany', () => {
       cnpj: '00.000.000/0001-00',
       name: 'Godelivery',
     });
-    expect(
+    await expect(
       createCompany.execute({
         cnpj: '00.000.000/0001-00',
         name: 'Godelivery',
