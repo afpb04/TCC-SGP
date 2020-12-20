@@ -1,28 +1,9 @@
 /* eslint-disable camelcase */
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
-import CreateCategoryService from '@modules/category/services/CreateCategoryService';
-import Category from '../../typeorm/entities/Category';
+import CategoryController from '../controllers/CategoryController';
 
 const categoriesRouter = Router();
+const categoriesController = new CategoryController();
 
-categoriesRouter.get('/', async (resquet, response) => {
-  const categoriesRepository = getRepository(Category);
-  const categories = await categoriesRepository.find();
-
-  return response.json(categories);
-});
-
-categoriesRouter.post('/', async (request, response) => {
-  const { name, description, company_id } = request.body;
-
-  const createCategory = new CreateCategoryService();
-
-  const category = await createCategory.execute({
-    name,
-    description,
-    company_id,
-  });
-  return response.json(category);
-});
+categoriesRouter.post('/', categoriesController.create);
 export default categoriesRouter;

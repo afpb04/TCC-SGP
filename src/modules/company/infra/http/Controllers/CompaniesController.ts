@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateCompanyService from '@modules/company/services/CreateCompanyService';
 
-export default class CompaniesControler {
+export default class CompaniesController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, cnpj } = request.body;
 

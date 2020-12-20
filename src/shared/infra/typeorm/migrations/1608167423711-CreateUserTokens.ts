@@ -1,16 +1,11 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateDeliveries1605745874342
+export default class CreateUserTokens1608167423711
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'deliveries',
+        name: 'user_tokens',
         columns: [
           {
             name: 'id',
@@ -20,15 +15,13 @@ export default class CreateDeliveries1605745874342
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'address',
-            type: 'varchar',
+            name: 'token',
+            type: 'uuid',
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
-            name: 'isdelivery',
-            type: 'boolean',
-          },
-          {
-            name: 'company_id',
+            name: 'user_id',
             type: 'uuid',
           },
           {
@@ -42,21 +35,21 @@ export default class CreateDeliveries1605745874342
             default: 'now()',
           },
         ],
-      }),
-    );
-    await queryRunner.createForeignKey(
-      'deliveries',
-      new TableForeignKey({
-        columnNames: ['company_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'companies',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        foreignKeys: [
+          {
+            name: 'TokenUser',
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            columnNames: ['user_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+          },
+        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('deliveries');
+    await queryRunner.dropTable('user_tokens');
   }
 }

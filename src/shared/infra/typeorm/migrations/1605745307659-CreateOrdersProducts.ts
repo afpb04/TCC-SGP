@@ -5,12 +5,12 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export default class CreateDeliveriesOrders1605746246332
+export default class CreateOrdersProducts1605745307659
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'orders_deliveries',
+        name: 'orders_products',
         columns: [
           {
             name: 'id',
@@ -20,11 +20,23 @@ export default class CreateDeliveriesOrders1605746246332
             default: 'uuid_generate_v4()',
           },
           {
+            name: 'price',
+            type: 'decimal',
+          },
+          {
+            name: 'totals',
+            type: 'decimal',
+          },
+          {
+            name: 'amount',
+            type: 'integer',
+          },
+          {
             name: 'orders_id',
             type: 'uuid',
           },
           {
-            name: 'deliveries_id',
+            name: 'products_id',
             type: 'uuid',
           },
           {
@@ -41,7 +53,7 @@ export default class CreateDeliveriesOrders1605746246332
       }),
     );
     await queryRunner.createForeignKey(
-      'orders_deliveries',
+      'orders_products',
       new TableForeignKey({
         columnNames: ['orders_id'],
         referencedColumnNames: ['id'],
@@ -51,11 +63,11 @@ export default class CreateDeliveriesOrders1605746246332
       }),
     );
     await queryRunner.createForeignKey(
-      'orders_deliveries',
+      'orders_products',
       new TableForeignKey({
-        columnNames: ['deliveries_id'],
+        columnNames: ['products_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'deliveries',
+        referencedTableName: 'products',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
@@ -63,6 +75,6 @@ export default class CreateDeliveriesOrders1605746246332
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('orders_deliveries');
+    await queryRunner.dropTable('orders_products');
   }
 }

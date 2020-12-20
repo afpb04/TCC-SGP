@@ -1,26 +1,31 @@
 /* eslint-disable camelcase */
-import { getRepository } from 'typeorm';
 import Category from '@modules/category/infra/typeorm/entities/Category';
+import { injectable, inject } from 'tsyringe';
 
-interface Request {
+import ICategoriesRepository from '../repositories/ICategoriesRepository';
+
+interface IRequest {
   name: string;
   description: string;
   company_id: string;
 }
+@injectable()
 class CreateCategoryService {
+  constructor(
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository,
+  ) {}
+
   public async execute({
     name,
     description,
     company_id,
-  }: Request): Promise<Category> {
-    const categoryRepository = getRepository(Category);
-
-    const category = categoryRepository.create({
+  }: IRequest): Promise<Category> {
+    const category = this.categoriesRepository.create({
       name,
       description,
       company_id,
     });
-    await categoryRepository.save(category);
 
     return category;
   }

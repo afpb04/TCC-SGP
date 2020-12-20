@@ -6,6 +6,8 @@ import ordersRouter from '@modules/order/infra/http/routes/order.routes';
 import productRouter from '@modules/product/infra/http/routes/product.routes';
 import orderProductRouter from '@modules/orderProduct/infra/http/routes/orderProduct.routes';
 import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
+import passwordRouter from '@modules/users/infra/http/routes/password.routes';
+import tableRouter from '@modules/table/infra/http/routes/table.routes';
 
 const routes = Router();
 
@@ -16,5 +18,7 @@ routes.use('/orders', ordersRouter);
 routes.use('/products', productRouter);
 routes.use('/ordersproducts', orderProductRouter);
 routes.use('/sessions', sessionsRouter);
+routes.use('/password', passwordRouter);
+routes.use('/table', tableRouter);
 
 export default routes;

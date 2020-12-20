@@ -1,26 +1,31 @@
 /* eslint-disable camelcase */
-import { getRepository } from 'typeorm';
 import Order from '@modules/order/infra/typeorm/entities/Order';
+import { injectable, inject } from 'tsyringe';
+
+import IOrdersRepository from '../repositories/IOrdersRepository';
 
 interface Request {
   totals: number;
   isfinished: boolean;
-  company_id: string;
+  table_id: string;
 }
+@injectable()
 class CreateOrderService {
+  constructor(
+    @inject('OrdersRepository')
+    private ordersRepository: IOrdersRepository,
+  ) {}
+
   public async execute({
     totals,
     isfinished,
-    company_id,
+    table_id,
   }: Request): Promise<Order> {
-    const orderRepository = getRepository(Order);
-
-    const order = orderRepository.create({
+    const order = this.ordersRepository.create({
       totals,
       isfinished,
-      company_id,
+      table_id,
     });
-    await orderRepository.save(order);
 
     return order;
   }

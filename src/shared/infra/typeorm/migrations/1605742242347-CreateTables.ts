@@ -5,12 +5,11 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export default class CreateOrdersProducts1605743147698
-  implements MigrationInterface {
+export default class CreateTables1605742242347 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'orders_products',
+        name: 'tables',
         columns: [
           {
             name: 'id',
@@ -20,23 +19,16 @@ export default class CreateOrdersProducts1605743147698
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'price',
-            type: 'decimal',
+            name: 'name',
+            type: 'varchar',
           },
           {
-            name: 'totals',
-            type: 'decimal',
+            name: 'available',
+            type: 'boolean',
+            isNullable: false,
           },
           {
-            name: 'amount',
-            type: 'integer',
-          },
-          {
-            name: 'orders_id',
-            type: 'uuid',
-          },
-          {
-            name: 'products_id',
+            name: 'company_id',
             type: 'uuid',
           },
           {
@@ -53,21 +45,11 @@ export default class CreateOrdersProducts1605743147698
       }),
     );
     await queryRunner.createForeignKey(
-      'orders_products',
+      'tables',
       new TableForeignKey({
-        columnNames: ['orders_id'],
+        columnNames: ['company_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'orders',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-      }),
-    );
-    await queryRunner.createForeignKey(
-      'orders_products',
-      new TableForeignKey({
-        columnNames: ['products_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'products',
+        referencedTableName: 'companies',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
@@ -75,6 +57,6 @@ export default class CreateOrdersProducts1605743147698
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('orders_products');
+    await queryRunner.dropTable('tables');
   }
 }

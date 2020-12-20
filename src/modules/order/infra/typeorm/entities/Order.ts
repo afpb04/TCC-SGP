@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import Company from '@modules/company/infra/typeorm/entities/Company';
+import Table from '@modules/table/infra/typeorm/entities/Table';
 
 @Entity('orders')
 class Order {
@@ -23,11 +23,11 @@ class Order {
   isfinished: boolean;
 
   @Column()
-  company_id: string;
+  table_id: string;
 
-  @ManyToOne(() => Company)
-  @JoinColumn({ name: 'company_id' })
-  company: Company;
+  @ManyToOne(() => Table)
+  @JoinColumn({ name: 'table_id' })
+  table: Table;
 
   @CreateDateColumn()
   created_at: Date;
