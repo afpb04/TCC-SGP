@@ -9,23 +9,23 @@ import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepo
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UsersTokensRepository from '@modules/users/infra/typeorm/repositories/UsersTokensRepository';
 
-import ICompaniesRepository from '@modules/company/repositories/ICompaiesRepository';
-import CompaniesRepository from '@modules/company/infra/typeorm/repositories/CompaniesRepository';
+import ICompaniesRepository from '@modules/companies/repositories/ICompaiesRepository';
+import CompaniesRepository from '@modules/companies/infra/typeorm/repositories/CompaniesRepository';
 
-import IProductsRepository from '@modules/product/repositories/IProductsRepository';
-import ProductsRepository from '@modules/product/infra/typeorm/repositories/ProductsRepository';
+import IProductsRepository from '@modules/products/repositories/IProductsRepository';
+import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
 
-import ITablesRepository from '@modules/table/repositories/ITablesRepository';
-import TablesRepository from '@modules/table/infra/typeorm/repositories/TablesRepository';
+import ITablesRepository from '@modules/tables/repositories/ITablesRepository';
+import TablesRepository from '@modules/tables/infra/typeorm/repositories/TablesRepository';
 
-import ICategoriesRepository from '@modules/category/repositories/ICategoriesRepository';
-import CategoriesRepository from '@modules/category/infra/typeorm/repositories/CategoriesRepository';
+import ICategoriesRepository from '@modules/categories/repositories/ICategoriesRepository';
+import CategoriesRepository from '@modules/categories/infra/typeorm/repositories/CategoriesRepository';
 
-import IOrdersRepository from '@modules/order/repositories/IOrdersRepository';
-import OrdersRepository from '@modules/order/infra/typeorm/repositories/OrdersRepository';
+import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
+import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersRepository';
 
-import IOrderProductRepository from '@modules/orderProduct/repositories/IOrderProductRepository';
-import OrdersProductsRepository from '@modules/orderProduct/infra/typeorm/repositories/OrdersProductsRepository';
+import IOrderProductRepository from '@modules/ordersProducts/repositories/IOrderProductRepository';
+import OrdersProductsRepository from '@modules/ordersProducts/infra/typeorm/repositories/OrdersProductsRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',

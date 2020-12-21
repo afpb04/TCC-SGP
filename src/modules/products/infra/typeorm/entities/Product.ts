@@ -9,10 +9,11 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+import Category from '@modules/categories/infra/typeorm/entities/Category';
 import Company from '@modules/companies/infra/typeorm/entities/Company';
 
-@Entity('users')
-class User {
+@Entity('products')
+class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -20,13 +21,13 @@ class User {
   name: string;
 
   @Column()
-  email: string;
+  description: string;
 
   @Column()
-  password: string;
+  price: number;
 
   @Column()
-  admin: boolean;
+  img: string;
 
   @Column()
   company_id: string;
@@ -35,10 +36,17 @@ class User {
   @JoinColumn({ name: 'company_id' })
   company: Company;
 
+  @Column()
+  category_id: string;
+
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 }
-export default User;
+export default Product;

@@ -11,8 +11,8 @@ import {
 
 import Company from '@modules/companies/infra/typeorm/entities/Company';
 
-@Entity('users')
-class User {
+@Entity('tables')
+class Table {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -20,13 +20,7 @@ class User {
   name: string;
 
   @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  admin: boolean;
+  available: boolean;
 
   @Column()
   company_id: string;
@@ -41,4 +35,4 @@ class User {
   @UpdateDateColumn()
   updated_at: Date;
 }
-export default User;
+export default Table;
