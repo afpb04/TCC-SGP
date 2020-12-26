@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
@@ -7,6 +8,7 @@ import AppError from '@shared/errors/AppError';
 
 interface TokenPayload {
   admin: boolean;
+  company_id: string;
   iat: number;
   exp: number;
   sub: string;
@@ -27,11 +29,12 @@ export default function ensureAuthenticated(
   try {
     const decoded = verify(token, authConfig.jwt.secret);
 
-    const { sub, admin } = decoded as TokenPayload;
+    const { sub, admin, company_id } = decoded as TokenPayload;
 
     request.user = {
       id: sub,
       admin,
+      company_id,
     };
 
     return next();

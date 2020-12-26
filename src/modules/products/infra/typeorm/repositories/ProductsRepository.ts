@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { getRepository, Repository } from 'typeorm';
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
@@ -13,6 +14,13 @@ class ProductsRepository implements IProductsRepository {
   public async findById(id: string): Promise<Product | undefined> {
     const product = this.ormReposioty.findOne(id);
     return product;
+  }
+
+  public async findALlProducts(company_id: string): Promise<Product[]> {
+    const products = await this.ormReposioty.find({
+      where: { company_id },
+    });
+    return products;
   }
 
   public async create(productData: ICreateProductDTO): Promise<Product> {

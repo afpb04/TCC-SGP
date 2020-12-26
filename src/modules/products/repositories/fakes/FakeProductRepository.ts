@@ -34,6 +34,13 @@ class ProductsRepository implements IProductRepository {
     return products;
   }
 
+  public async findALlProducts(company_id: string): Promise<Product[]> {
+    const products = this.products.filter(
+      product => product.company_id === company_id,
+    );
+    return products;
+  }
+
   public async save(product: Product): Promise<Product> {
     const findIndex = this.products.findIndex(
       findProduct => findProduct.id === product.id,
