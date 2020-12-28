@@ -2,6 +2,7 @@
 import { uuid } from 'uuidv4';
 import ITablesRepository from '@modules/tables/repositories/ITablesRepository';
 import ICreateTableDTO from '@modules/tables/dtos/ICreateTableDTO';
+import IFindAlltablesDTO from '@modules/tables/dtos/IFindAlltablesDTO';
 import Table from '../../infra/typeorm/entities/Table';
 
 class FakeTablesRepository implements ITablesRepository {
@@ -10,6 +11,15 @@ class FakeTablesRepository implements ITablesRepository {
   public async findById(id: string): Promise<Table | undefined> {
     const findTable = this.tables.find(table => table.id === id);
     return findTable;
+  }
+
+  public async FindAllTables({
+    company_id,
+  }: IFindAlltablesDTO): Promise<Table[]> {
+    const tables = this.tables.filter(
+      category => category.company_id === company_id,
+    );
+    return tables;
   }
 
   public async create({

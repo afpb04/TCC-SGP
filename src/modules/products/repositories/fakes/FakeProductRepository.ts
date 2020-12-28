@@ -2,6 +2,7 @@
 import { uuid } from 'uuidv4';
 import IProductRepository from '@modules/products/repositories/IProductsRepository';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IFindAllProductsDTO from '@modules/products/dtos/IFindAllProductsDTO';
 import Product from '../../infra/typeorm/entities/Product';
 
 class ProductsRepository implements IProductRepository {
@@ -34,7 +35,9 @@ class ProductsRepository implements IProductRepository {
     return products;
   }
 
-  public async findALlProducts(company_id: string): Promise<Product[]> {
+  public async findALlProducts({
+    company_id,
+  }: IFindAllProductsDTO): Promise<Product[]> {
     const products = this.products.filter(
       product => product.company_id === company_id,
     );

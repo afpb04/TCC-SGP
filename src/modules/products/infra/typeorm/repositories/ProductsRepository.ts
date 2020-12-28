@@ -2,35 +2,38 @@
 import { getRepository, Repository } from 'typeorm';
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IFindAllProductsDTO from '@modules/products/dtos/IFindAllProductsDTO';
 import Product from '../entities/Product';
 
 class ProductsRepository implements IProductsRepository {
-  private ormReposioty: Repository<Product>;
+  private ormRepository: Repository<Product>;
 
   constructor() {
-    this.ormReposioty = getRepository(Product);
+    this.ormRepository = getRepository(Product);
   }
 
   public async findById(id: string): Promise<Product | undefined> {
-    const product = this.ormReposioty.findOne(id);
+    const product = this.ormRepository.findOne(id);
     return product;
   }
 
-  public async findALlProducts(company_id: string): Promise<Product[]> {
-    const products = await this.ormReposioty.find({
+  public async findALlProducts({
+    company_id,
+  }: IFindAllProductsDTO): Promise<Product[]> {
+    const products = await this.ormRepository.find({
       where: { company_id },
     });
     return products;
   }
 
   public async create(productData: ICreateProductDTO): Promise<Product> {
-    const product = await this.ormReposioty.create(productData);
-    await this.ormReposioty.save(product);
+    const product = await this.ormRepository.create(productData);
+    await this.ormRepository.save(product);
     return product;
   }
 
   public async save(product: Product): Promise<Product> {
-    return this.ormReposioty.save(product);
+    return this.ormRepository.save(product);
   }
 }
 export default ProductsRepository;

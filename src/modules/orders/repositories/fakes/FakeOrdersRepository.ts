@@ -12,6 +12,11 @@ class FakeOrdersRepository implements IOrdersRepository {
     return findOrder;
   }
 
+  public async findByTable(table_id: string): Promise<Order[]> {
+    const orders = this.orders.filter(order => order.table_id === table_id);
+    return orders;
+  }
+
   public async create({
     totals,
     isfinished,

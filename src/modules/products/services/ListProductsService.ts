@@ -16,7 +16,9 @@ class ListProductsService {
   ) {}
 
   public async execute({ company_id }: IRequest): Promise<Product[]> {
-    const products = await this.productsRepository.findALlProducts(company_id);
+    const products = await this.productsRepository.findALlProducts({
+      company_id,
+    });
 
     return products;
   }
