@@ -21,13 +21,8 @@ class OrdersProductsRepository implements IOrderProductRepository {
     orders_id,
   }: IFindOrderProductDTO): Promise<OrderProduct[]> {
     const findOrderProduct = await this.ormRepository.find({
-      join: {
-        alias: 'orders_products',
-        leftJoinAndSelect: {
-          product: 'orders_products.product',
-        },
-      },
       where: { orders_id },
+      relations: ['product', 'order'],
     });
 
     return findOrderProduct;

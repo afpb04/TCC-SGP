@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { inject, injectable } from 'tsyringe';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import { classToClass } from 'class-transformer';
 import IProductsRepository from '../repositories/IProductsRepository';
 
 import Product from '../infra/typeorm/entities/Product';
@@ -28,9 +29,10 @@ class ListProductsService {
         company_id,
       });
 
-      console.log('A query no db foi feita!');
-
-      await this.cacheProvider.save(`products-list:${company_id}`, products);
+      await this.cacheProvider.save(
+        `products-list:${company_id}`,
+        classToClass(products),
+      );
     }
 
     return products;

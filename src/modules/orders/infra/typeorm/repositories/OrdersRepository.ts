@@ -21,6 +21,7 @@ class OrdersRepository implements IOrdersRepository {
       where: {
         table_id,
       },
+      relations: ['table'],
     });
     return orders;
   }
