@@ -11,6 +11,8 @@ import {
 
 import Company from '@modules/companies/infra/typeorm/entities/Company';
 
+import { Exclude } from 'class-transformer';
+
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
@@ -23,6 +25,7 @@ class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()

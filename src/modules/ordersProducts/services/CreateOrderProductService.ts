@@ -2,6 +2,7 @@
 import OrderProduct from '@modules/ordersProducts/infra/typeorm/entities/OrderProduct';
 import { injectable, inject } from 'tsyringe';
 
+import INotificationsRepository from '@modules/notifcations/repositories/INotificationsRepository';
 import IOrderProductRepository from '../repositories/IOrderProductRepository';
 
 interface Request {
@@ -16,6 +17,9 @@ class CreateOrderProductService {
   constructor(
     @inject('OrdersProductsRepository')
     private ordersProductsRepository: IOrderProductRepository,
+
+    @inject('NotificationsRepository')
+    private notificationsRepository: INotificationsRepository,
   ) {}
 
   public async execute({
@@ -31,6 +35,11 @@ class CreateOrderProductService {
       amount,
       orders_id,
       products_id,
+    });
+
+    await this.notificationsRepository.create({
+      recipient_id: 'ce795644-a7d4-4b4e-ae48-19d8d7c1d7a5',
+      content: `Novo pedido ${orders_id}, item ${products_id}, quantidade: ${amount}  `,
     });
 
     return orderProduct;
