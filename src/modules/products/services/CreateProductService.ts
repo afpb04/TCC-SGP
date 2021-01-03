@@ -2,6 +2,7 @@
 import Product from '@modules/products/infra/typeorm/entities/Product';
 import { injectable, inject } from 'tsyringe';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IProductRepository from '../repositories/IProductsRepository';
 
 interface Request {
@@ -16,6 +17,8 @@ class CreateProductService {
   constructor(
     @inject('ProductsRepository')
     private productRepository: IProductRepository,
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -32,6 +35,8 @@ class CreateProductService {
       company_id,
       category_id,
     });
+
+    await this.cacheProvider.invalidate(`products-list:${company_id}`);
 
     return product;
   }

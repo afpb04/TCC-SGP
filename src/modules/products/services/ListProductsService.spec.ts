@@ -1,14 +1,19 @@
 import FakeProductRepository from '@modules/products/repositories/fakes/FakeProductRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import ListProductsService from './ListProductsService';
 
 let fakeProductsRepository: FakeProductRepository;
 let listProducts: ListProductsService;
-
+let fakeCacheProvider: FakeCacheProvider;
 describe('ListProducts', () => {
   beforeEach(() => {
     fakeProductsRepository = new FakeProductRepository();
+    fakeCacheProvider = new FakeCacheProvider();
 
-    listProducts = new ListProductsService(fakeProductsRepository);
+    listProducts = new ListProductsService(
+      fakeProductsRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to list the products', async () => {
