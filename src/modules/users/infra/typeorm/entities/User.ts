@@ -11,7 +11,7 @@ import {
 
 import Company from '@modules/companies/infra/typeorm/entities/Company';
 
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
 @Entity('users')
 class User {
@@ -32,6 +32,9 @@ class User {
   admin: boolean;
 
   @Column()
+  avatar: string;
+
+  @Column()
   company_id: string;
 
   @ManyToOne(() => Company)
@@ -43,5 +46,12 @@ class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'avatar_url' })
+  getImg_url(): string | null {
+    return this.avatar
+      ? `${process.env.APP_API_URL}/files/${this.avatar}`
+      : null;
+  }
 }
 export default User;
