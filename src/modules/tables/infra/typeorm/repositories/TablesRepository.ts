@@ -16,7 +16,10 @@ class TablesRepository implements ITablesRepository {
     company_id,
   }: IFindAlltablesDTO): Promise<Table[]> {
     const tables = await this.ormRepository.find({
-      where: { company_id },
+      relations: ['orders'],
+      where: {
+        company_id,
+      },
     });
     return tables;
   }

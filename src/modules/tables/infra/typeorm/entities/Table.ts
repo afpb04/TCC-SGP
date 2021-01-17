@@ -7,9 +7,11 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 import Company from '@modules/companies/infra/typeorm/entities/Company';
+import Order from '@modules/orders/infra/typeorm/entities/Order';
 
 @Entity('tables')
 class Table {
@@ -28,6 +30,9 @@ class Table {
   @ManyToOne(() => Company)
   @JoinColumn({ name: 'company_id' })
   company: Company;
+
+  @OneToMany(() => Order, order => order.table)
+  orders: Order[];
 
   @CreateDateColumn()
   created_at: Date;

@@ -17,7 +17,8 @@ export default class CompaniesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, description, company_id } = request.body;
+    const { name, description } = request.body;
+    const { company_id } = request.user;
 
     const createCategory = container.resolve(CreateCategoryService);
 

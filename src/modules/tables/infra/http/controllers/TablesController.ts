@@ -17,7 +17,8 @@ export default class TablesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, available, company_id } = request.body;
+    const { company_id } = request.user;
+    const { name, available } = request.body;
 
     const createTable = container.resolve(CreateTableService);
 

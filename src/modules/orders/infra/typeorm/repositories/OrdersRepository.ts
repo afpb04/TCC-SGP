@@ -18,10 +18,10 @@ class OrdersRepository implements IOrdersRepository {
 
   public async findByTable(table_id: string): Promise<Order[]> {
     const orders = this.ormRepository.find({
+      relations: ['table', 'ordersProducts'],
       where: {
         table_id,
       },
-      relations: ['table'],
     });
     return orders;
   }

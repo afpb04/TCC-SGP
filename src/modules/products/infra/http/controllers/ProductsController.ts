@@ -14,11 +14,12 @@ export default class ProductsController {
     const products = await showProducts.execute({
       company_id,
     });
-    return response.json({ products: classToClass(products) });
+    return response.json(classToClass(products));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, description, price, company_id, category_id } = request.body;
+    const { company_id } = request.user;
+    const { name, description, price, category_id } = request.body;
 
     const createProduct = container.resolve(CreateProductService);
 
@@ -29,6 +30,6 @@ export default class ProductsController {
       company_id,
       category_id,
     });
-    return response.json({ product: classToClass(product) });
+    return response.json(classToClass(product));
   }
 }
