@@ -21,9 +21,9 @@ class ListProductsService {
   ) {}
 
   public async execute({ company_id }: IRequest): Promise<Product[]> {
-    let products = await this.cacheProvider.recover<Product[]>(
-      `products-list:${company_id}`,
-    );
+    let products = null; // await this.cacheProvider.recover<Product[]>(
+    //   `products-list:${company_id}`,
+    // );
     if (!products) {
       products = await this.productsRepository.findALlProducts({
         company_id,

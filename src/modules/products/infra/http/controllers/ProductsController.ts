@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateProductService from '@modules/products/services/CreateProductService';
 import ListProductsService from '@modules/products/services/ListProductsService';
+import ShowProductService from '@modules/products/services/ShowProductService';
 import { classToClass } from 'class-transformer';
 
 export default class ProductsController {
@@ -15,6 +16,17 @@ export default class ProductsController {
       company_id,
     });
     return response.json(classToClass(products));
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const showProduct = container.resolve(ShowProductService);
+
+    const product = await showProduct.execute({
+      product_id: id,
+    });
+    return response.json(classToClass(product));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {

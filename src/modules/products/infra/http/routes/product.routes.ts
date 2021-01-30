@@ -18,6 +18,8 @@ productRouter.post('/', productsController.create);
 
 productRouter.get('/', productsController.index);
 
+productRouter.get('/:id', productsController.show);
+
 productRouter.patch(
   '/img/:id',
   upload.single('img'),

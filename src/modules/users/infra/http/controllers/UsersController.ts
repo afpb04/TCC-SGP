@@ -18,6 +18,6 @@ export default class UsersController {
       company_id,
     });
 
-    return response.json({ user: classToClass(user) });
+    return response.json(classToClass(user));
   }
 }
