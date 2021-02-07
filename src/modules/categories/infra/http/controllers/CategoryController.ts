@@ -5,6 +5,20 @@ import CreateCategoryService from '@modules/categories/services/CreateCategorySe
 import ListCategoriesService from '@modules/categories/services/ListCategoriesService';
 
 export default class CompaniesController {
+  public async indexPublic(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const company_id = request.params.id;
+
+    const showCategories = container.resolve(ListCategoriesService);
+
+    const categories = await showCategories.execute({
+      company_id,
+    });
+    return response.json(categories);
+  }
+
   public async index(request: Request, response: Response): Promise<Response> {
     const { company_id } = request.user;
 

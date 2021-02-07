@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { uuid } from 'uuidv4';
 import ICompaniesRepository from '@modules/companies/repositories/ICompaiesRepository';
 import ICreateCompanyDTO from '@modules/companies/dtos/ICreateCompanyDTO';
@@ -8,6 +9,13 @@ class CompaniesRepository implements ICompaniesRepository {
 
   public async findByCNPJ(cnpj: string): Promise<Company | undefined> {
     const findCompany = this.companies.find(company => company.cnpj === cnpj);
+    return findCompany;
+  }
+
+  public async findById(company_id: string): Promise<Company | undefined> {
+    const findCompany = this.companies.find(
+      company => company.id === company_id,
+    );
     return findCompany;
   }
 

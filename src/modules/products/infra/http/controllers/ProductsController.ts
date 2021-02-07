@@ -18,6 +18,20 @@ export default class ProductsController {
     return response.json(classToClass(products));
   }
 
+  public async indexPlublic(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { company_id } = request.params;
+
+    const showProducts = container.resolve(ListProductsService);
+
+    const products = await showProducts.execute({
+      company_id,
+    });
+    return response.json(classToClass(products));
+  }
+
   public async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 

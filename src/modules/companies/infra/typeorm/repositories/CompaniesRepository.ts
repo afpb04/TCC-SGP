@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { getRepository, Repository } from 'typeorm';
 import ICompaniesRepository from '@modules/companies/repositories/ICompaiesRepository';
 import ICreateCompanyDTO from '@modules/companies/dtos/ICreateCompanyDTO';
@@ -14,6 +15,11 @@ class CompaniesRepository implements ICompaniesRepository {
     const company = await this.ormRepository.findOne({
       where: { cnpj },
     });
+    return company;
+  }
+
+  public async findById(company_id: string): Promise<Company | undefined> {
+    const company = await this.ormRepository.findOne(company_id);
     return company;
   }
 
